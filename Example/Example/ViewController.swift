@@ -34,11 +34,13 @@ class ViewController: UIViewController {
 
         let topConstraint = equal(\.topAnchor, constant: 4)
         let bottomConstraint = equal(\.bottomAnchor, constant: -4)
+        let widthConstraint = equal(\.widthAnchor, multiplier: 0.3)
 
         threeBoxesWrapper.addSubview(leftBox, constraints: [
             topConstraint,
             equal(\.leadingAnchor, constant: 4),
-            bottomConstraint
+            bottomConstraint,
+            widthConstraint
         ])
 
         threeBoxesWrapper.addSubview(centerBox, constraints: [
@@ -49,19 +51,19 @@ class ViewController: UIViewController {
         threeBoxesWrapper.addSubview(rightBox, constraints: [
             topConstraint,
             equal(\.trailingAnchor, constant: -4),
-            bottomConstraint
+            bottomConstraint,
+            widthConstraint
         ])
 
         let leadingEqualToTrailing = constraint(\.leadingAnchor,
                                                 equalTo: \.trailingAnchor,
                                                 constant: 8)
 
-        let trailingEqualToLeading = constraint(\.leadingAnchor,
-                                                equalTo: \.trailingAnchor,
-                                                constant: 8)
+        let trailingEqualToLeading = constraint(\.trailingAnchor,
+                                                equalTo: \.leadingAnchor,
+                                                constant: -8)
 
         NSLayoutConstraint.activate([
-            leftBox.widthAnchor.constraint(equalTo: threeBoxesWrapper.widthAnchor, multiplier: 0.3),
             leadingEqualToTrailing(centerBox, leftBox),
             trailingEqualToLeading(centerBox, rightBox)
         ])

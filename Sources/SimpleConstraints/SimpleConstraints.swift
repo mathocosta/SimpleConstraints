@@ -57,6 +57,16 @@ public func equal<Anchor>(
     }
 }
 
+public func equal<Anchor>(
+    _ anchor: KeyPath<UIView, Anchor>,
+    multiplier: CGFloat
+) -> Constraint where Anchor: NSLayoutDimension {
+    return { (view, superview) in
+        view[keyPath: anchor].constraint(equalTo: superview[keyPath: anchor],
+                                         multiplier: multiplier)
+    }
+}
+
 public func lessThanOrEqual<Anchor>(
     _ anchor: KeyPath<UIView, Anchor>,
     toConstant constant: CGFloat
@@ -80,21 +90,21 @@ public func equal<Axis, Anchor>(
     _ anchor: KeyPath<UIView, Anchor>,
     constant: CGFloat = 0
 ) -> Constraint where Anchor: NSLayoutAnchor<Axis> {
-    constraint(anchor, equalTo: anchor)
+    constraint(anchor, equalTo: anchor, constant: constant)
 }
 
 public func lessThanOrEqual<Axis, Anchor>(
     _ anchor: KeyPath<UIView, Anchor>,
     constant: CGFloat = 0
 ) -> Constraint where Anchor: NSLayoutAnchor<Axis> {
-    constraint(anchor, lessThanOrEqualTo: anchor)
+    constraint(anchor, lessThanOrEqualTo: anchor, constant: constant)
 }
 
 public func greaterThanOrEqual<Axis, Anchor>(
     _ anchor: KeyPath<UIView, Anchor>,
     constant: CGFloat = 0
 ) -> Constraint where Anchor: NSLayoutAnchor<Axis> {
-    constraint(anchor, greaterThanOrEqualTo: anchor)
+    constraint(anchor, greaterThanOrEqualTo: anchor, constant: constant)
 }
 
 public func prioritize(_ constraint: @escaping Constraint,
